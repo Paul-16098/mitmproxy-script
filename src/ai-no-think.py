@@ -9,7 +9,7 @@ def request(flow: http.HTTPFlow) -> None:
 	payload = {"reasoning_effort": "none", "think": False}
 
 	# Convert the dictionary to a JSON string and assign it to the request text
-	flow.request.text = json.dumps({**(json.loads(flow.request.text)), **payload})
-
-	# Ensure the Content-Type header reflects that you are sending JSON
-	# flow.request.headers["Content-Type"] = "application/json"
+	if flow.request.text is not None:
+		flow.request.text = json.dumps({**(json.loads(flow.request.text)), **payload})
+	else:
+		print("flow.request.text is None")
